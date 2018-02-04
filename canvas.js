@@ -1,10 +1,14 @@
-var setting="rect";
+var rect=true;
+var clearButton=document.getElementById("clear")
+var toggleButton=document.getElementById("toggle")
 
 var canvas=document.getElementById("slate");
 var ctx=canvas.getContext("2d");
-var rect=function(e){
+var recta=function(e){
     mouseX=e.pageX;
     mouseY=e.pageY;
+    ctx.beginPath();
+    ctx.fillStyle="red";
     ctx.fillRect(mouseX-10,mouseY-10,20,20);
 };
 
@@ -18,7 +22,26 @@ var circle=function(e){
     ctx.stroke();
 };
 
-canvas.addEventListener("click",circle);
-canvas.addEventListener("click",rect);
+var draw=function(e){
+    if (rect){
+	recta(e);
+    }
+    else{
+	circle(e);
+    }
+};
+
+var clear=function(e){
+    ctx.clearRect(0,0,500,500);
+}
+
+var toggle=function(e){
+    rect=!rect;
+}
+
+    
+canvas.addEventListener("click",draw);
+clearButton.addEventListener("click", clear);
+toggleButton.addEventListener("click", toggle);
 
 
